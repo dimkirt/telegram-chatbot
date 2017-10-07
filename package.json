@@ -1,0 +1,37 @@
+{
+  "name": "telegram-chatbot",
+  "version": "1.0.0",
+  "description": "An implementation of a telegram chatbot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimkirt/telegram-chatbot.git"
+  },
+  "keywords": [
+    "nodejs",
+    "telegram",
+    "chatbot",
+    "bot"
+  ],
+  "author": "Dimitris Kirtsios <dimkirts@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dimkirt/telegram-chatbot/issues"
+  },
+  "homepage": "https://github.com/dimkirt/telegram-chatbot#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "express": "^4.16.1",
+    "form-data": "^2.3.1",
+    "greek-utils": "^1.2.1",
+    "knuth-shuffle": "^1.0.1",
+    "lower-case": "^1.1.4",
+    "mocha": "^4.0.1",
+    "node-fetch": "^1.7.3"
+  }
+}
