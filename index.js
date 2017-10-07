@@ -1,6 +1,6 @@
 'use strict';
 
-const telegramInboundEndpoint = 'https://zagby-telegram-bot.herokuapp.com/';
+const telegramInboundEndpoint = 'https://popomastoras.herokuapp.com/';
 
 const express = require('express');
 const bodyParser = require('body-parser');
