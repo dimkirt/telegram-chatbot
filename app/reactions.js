@@ -9,11 +9,9 @@ const utils = require('./utils');
 
 // ---------------- CUSTOM FUNCTIONS
 function sendLands(chatId){
-    const p1 = telegram.sendMessage(chatId, 'Χαλάρωσε boy!');
-    const p2 = imgur.getRandomLandscape()
+    return imgur.getRandomLandscape()
         .then(imgUrl => telegram.sendPicture(chatId, imgUrl))
         .catch(err => console.log(err));
-    return Promise.all([p1, p2]);
 }
 
 module.exports = {
