@@ -89,6 +89,20 @@ function sendDocument(baseUrl, chatId, documentUrl){
         .catch(err => {throw new Error('Error caught in sendDocument ' + err.message);});
 }
 
+function sendLocation(baseUrl, chatId, latitude, longitude){
+    const form = new FormData();
+    form.append('chat_id', chatId);
+    form.append('latitude', latitude);
+    form.append('longitude', longitude);
+        
+    return fetch(baseUrl+'sendDocument', {
+        method: 'POST',
+        body: form
+    })
+        .then(res => res.json())
+        .catch(err => {throw new Error('Error caught in sendLocation ' + err.message);});
+}
+
 function replyWithMessage(baseUrl, chatId, msg, msgId){
     const form = new FormData();
     form.append('chat_id', chatId);
@@ -150,9 +164,11 @@ module.exports = {
         return sendPictureCaptioned(apiUrl, chatId, photoUrl, caption);
     },
 
-    sendDocument: function(chatId, documentUrl){
-        return sendDocument(apiUrl, chatId, documentUrl);
+    sendDocument: function(chatId, latitude, longitude){
+        return sendDocument(apiUrl, chatId, latitude, longitude);
     },
+
+    sendLocation: function(){},
 
     replyWithMessage: function(chatId, msg, msgId){
         return replyWithMessage(apiUrl, chatId, msg, msgId);
