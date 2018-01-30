@@ -84,6 +84,10 @@ module.exports = {
             return telegram.sendMessage(chatId, 'https://www.youtube.com/playlist?list=PLAFQAQCf660pJgBxh13wGlbK_aQDoFZLi');
         }
 
+        else if(text === 'location_dps'){
+            return telegram.sendLocation(chatId, 48.176464, 11.592553);
+        }
+
         else{
             return Promise.resolve(true);
         }
