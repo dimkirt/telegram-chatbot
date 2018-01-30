@@ -71,6 +71,7 @@ function handleUpdates(req,res){
 
         // We need to get the action from the response callback and pass it on
         // We should react to actions that we get from Watson
+        console.log(resp);
         console.log('ACTIOOOOOOOOOOOOOOOOON: '+resp.output.action);
         reactions.reactToUserMessage(chatId, user, resp.output.action, msgObject)
             .then(() => res.status(200).send('OK'))
