@@ -59,7 +59,7 @@ function handleUpdates(req,res){
     // Watson Payload for the specific telegram message
     const payload = {
         workspace_id: watson_workspace_id,
-        context: resp.context || {},  // somehow we need to store context
+        //context: resp.context || {},  // somehow we need to store context
         input: {text: text} || {}  // get telegram text
     };
 
