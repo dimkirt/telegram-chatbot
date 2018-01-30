@@ -27,6 +27,10 @@ module.exports = {
             return telegram.sendMessage(chatId, 'NETI');
         }
 
+        else if(text === 'end_conversation'){
+            return telegram.sendMessage(chatId, 'Ante Geiaaaaaaaaaa!');
+        }
+
         else if(text.includes('popira')){
             return telegram.replyWithMessage(chatId, 'parakalw', msgId);
         }
