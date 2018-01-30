@@ -90,7 +90,7 @@ module.exports = {
             return news.sendNews(chatId, 'google-news');
         }
 
-        else if(text === 'pop kairos'){
+        else if(text === 'weather'){
             return weather.sendWeather(chatId, 'Thessaloniki', 'gr');
         }
 
