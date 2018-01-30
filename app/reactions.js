@@ -31,23 +31,12 @@ module.exports = {
             return telegram.sendMessage(chatId, 'Ante Geiaaaaaaaaaa!');
         }
 
+        // Reply
         else if(text.includes('popira')){
             return telegram.replyWithMessage(chatId, 'parakalw', msgId);
         }
 
-        else if(text.startsWith('xaxa')){
-            return telegram.sendMessage(chatId, 'xaxaxa');
-        }
-
-        else if(text === 'pop vibez'){
-            return telegram.sendMessage(chatId, 'https://www.youtube.com/playlist?list=PLAFQAQCf660pJgBxh13wGlbK_aQDoFZLi');
-        }
-
         // REACT ONLY WITH PICTURE
-        else if(text === 'pop eisai theos'){
-            return telegram.sendPicture(chatId, 'https://imgur.com/WS5De5o');
-        }
-
         else if(text.includes('dab')){
             return telegram.sendPicture(chatId, 'https://imgur.com/bsiD2P7');
         }
@@ -62,15 +51,6 @@ module.exports = {
             return telegram.sendDocument(chatId, 'https://imgur.com/0K9r9n0.gif');
         }
 
-        else if(text === 'pop to oplo mou'){
-            if(user === 'dimkirt'){
-                return telegram.sendPicture(chatId, 'https://imgur.com/AZB4mKz');
-            }
-            else{
-                return telegram.sendDocument(chatId, 'https://imgur.com/8byKNsC.gif');
-            }
-        }
-    
         // REACT WITH TEXT AND PICTURE
         else if(text === 'pop koumpwneis?'){
             const p1 = telegram.sendMessage(chatId, 'Όχι μαν μου, μόνο φυτικά παίρνω');
@@ -86,7 +66,7 @@ module.exports = {
         }
 
         // CUSTOM REACTIONS
-        else if(text === 'pop efhmerida'){
+        else if(text === 'news_google'){
             return news.sendNews(chatId, 'google-news');
         }
 
@@ -98,8 +78,12 @@ module.exports = {
             return weather.sendWeather(chatId, 'Munich', 'de');
         }
 
-        else if(text === 'pop vouno'){
+        else if(text === 'images_nature'){
             return sendLands(chatId);
+        }
+
+        else if(text === 'playlist_hiphop'){
+            return telegram.sendMessage(chatId, 'https://www.youtube.com/playlist?list=PLAFQAQCf660pJgBxh13wGlbK_aQDoFZLi');
         }
 
         else{
