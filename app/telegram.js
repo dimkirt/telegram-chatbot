@@ -95,7 +95,7 @@ function sendLocation(baseUrl, chatId, latitude, longitude){
     form.append('latitude', latitude);
     form.append('longitude', longitude);
         
-    return fetch(baseUrl+'sendDocument', {
+    return fetch(baseUrl+'sendLocation', {
         method: 'POST',
         body: form
     })
