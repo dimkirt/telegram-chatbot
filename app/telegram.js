@@ -164,11 +164,13 @@ module.exports = {
         return sendPictureCaptioned(apiUrl, chatId, photoUrl, caption);
     },
 
-    sendDocument: function(chatId, latitude, longitude){
-        return sendDocument(apiUrl, chatId, latitude, longitude);
+    sendDocument: function(chatId, documentUrl){
+        return sendDocument(apiUrl, chatId, documentUrl);
     },
 
-    sendLocation: function(){},
+    sendLocation: function(chatId, latitude, longitude){
+        return sendLocation(apiUrl, chatId, latitude, longitude);
+    },
 
     replyWithMessage: function(chatId, msg, msgId){
         return replyWithMessage(apiUrl, chatId, msg, msgId);
