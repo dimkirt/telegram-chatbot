@@ -1,4 +1,21 @@
 'use strict';
+require('dotenv').config();
+
+// Dirtyyyy
+// ***************** WATSON RELATED STUFF ********
+const ConversationV1 = require('watson-developer-cloud/conversation/v1');
+const watson_username = process.env.WATSON_USERNAME;
+const watson_password = process.env.WATSON_PASSWORD;
+const watson_workspace_id = process.env.WATSON_WORKSPACE_ID;
+
+// We use this wrapper to send input to the service
+// and also receive output from the service
+const conversation = new ConversationV1({
+    username: watson_username,
+    password: watson_password,
+    version_date: '2018-01-29'
+});
+// *************************************************
 
 const telegramInboundEndpoint = 'https://popomastoras.herokuapp.com/';
 
@@ -39,9 +56,25 @@ function handleUpdates(req,res){
     const chatId = utils.filterChatId(req.body);
     const msgObject = utils.filterMsgId(req.body);
 
-    reactions.reactToUserMessage(chatId, user, text, msgObject)
-        .then(() => res.status(200).send('OK'))
-        .catch(err => console.log(err));
+    // Watson Payload for the specific telegram message
+    const payload = {
+        workspace_id: watson_workspace_id,
+        context: resp.context || {},  // somehow we need to store context
+        input: {text: text} || {}  // get telegram text
+    };
+
+    // Send payload the response has the action
+    conversation.message(payload, function(err, resp){
+        if (err) {
+            return res.status(err.code || 500).json(err);
+        }
+
+        // We need to get the action from the response callback and pass it on
+        // We should react to actions that we get from Watson
+        reactions.reactToUserMessage(chatId, user, resp.output.action, msgObject)
+            .then(() => res.status(200).send('OK'))
+            .catch(err => console.log(err));
+    });
 }
 
 function welcome(req,res){
