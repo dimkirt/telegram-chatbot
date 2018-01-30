@@ -90,8 +90,12 @@ module.exports = {
             return news.sendNews(chatId, 'google-news');
         }
 
-        else if(text === 'weather'){
+        else if(text === 'weather_thessaloniki'){
             return weather.sendWeather(chatId, 'Thessaloniki', 'gr');
+        }
+
+        else if(text === 'weather_munich'){
+            return weather.sendWeather(chatId, 'Munich', 'de');
         }
 
         else if(text === 'pop vouno'){
