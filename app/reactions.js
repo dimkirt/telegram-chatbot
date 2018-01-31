@@ -90,7 +90,8 @@ module.exports = {
 
         else{
             //console.log(botMessage[0]);
-            return botMessage.map(x => telegram.sendMessage(chatId, x));
+            promisesArr = botMessage.map(x => telegram.sendMessage(chatId, x));
+            return Promise.all(promisesArr);
             //return telegram.sendMessage(chatId, botMessage[0]);
         }
     }
