@@ -89,8 +89,9 @@ module.exports = {
         }
 
         else{
-            console.log(botMessage);
-            return telegram.sendMessage(chatId, botMessage);
+            //console.log(botMessage[0]);
+            return botMessage.map(x => telegram.sendMessage(chatId, x));
+            //return telegram.sendMessage(chatId, botMessage[0]);
         }
     }
 };
