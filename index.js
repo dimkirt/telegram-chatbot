@@ -46,7 +46,7 @@ function handleUpdates(req,res){
     // Send payload the response has the action
     watson.sendMessage(text)
         .then(resp => {
-            return reactions.reactToUserMessage(chatId, user, resp.output.action, msgObject)
+            return reactions.reactToUserMessage(chatId, user,resp.output.text, resp.output.action, msgObject)
         })
         .then(() => res.status(200).send('OK'))
         .catch(err => console.log(err));

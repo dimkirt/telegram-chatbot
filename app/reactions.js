@@ -15,7 +15,7 @@ function sendLands(chatId){
 }
 
 module.exports = {
-    reactToUserMessage: function(chatId, user, text, msgId){
+    reactToUserMessage: function(chatId, user, botMessage, text, msgId){
         // REACT ONLY WITH TEXT
         text = utils.standardizeString(text);
         if(text === 'pop'){
@@ -89,7 +89,7 @@ module.exports = {
         }
 
         else{
-            return Promise.resolve(true);
+            return telegram.sendMessage(chatId, botMessage);
         }
     }
 };
