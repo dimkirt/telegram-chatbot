@@ -89,6 +89,7 @@ module.exports = {
         }
 
         else{
+            console.log(botMessage);
             return telegram.sendMessage(chatId, botMessage);
         }
     }
