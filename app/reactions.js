@@ -89,9 +89,12 @@ module.exports = {
         }
 
         else{
-            //console.log(botMessage[0]);
             const promisesArr = botMessage.map(x => telegram.sendMessage(chatId, x));
-            return Promise.all(promisesArr);
+            return promisesArr.reduce((accum, task) => {
+                return Promise.all([accum, task])
+                    .then(res => [... res[0], res[1]]);                
+            }, Promise.resolve([]));
+            
             //return telegram.sendMessage(chatId, botMessage[0]);
         }
     }
