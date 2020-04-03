@@ -33,7 +33,6 @@
     "knuth-shuffle": "^1.0.1",
     "lower-case": "^1.1.4",
     "mocha": "^4.0.1",
-    "node-fetch": "^1.7.3",
-    "watson-developer-cloud": "^3.0.5"
+    "node-fetch": "^1.7.3"
   }
 }
