@@ -1,11 +1,5 @@
 const axios = require('axios')
-
-function transformAxiosRejectionToException(error) {
-  if (error.isAxiosError) {
-    console.log(error)
-    throw new Error(error.response.data.message);
-  }
-}
+const sharedUtils = require('../shared/utils');
 
 class ImgurApi {
   constructor({ apiClientId, apiClientSecret }) {
@@ -21,13 +15,13 @@ class ImgurApi {
 
   async getAlbumImages(albumHash) {
     const url = `album/${albumHash}/images`;
-    const res = await this.client.get(url).catch(transformAxiosRejectionToException);
+    const res = await this.client.get(url).catch(sharedUtils.transformAxiosRejectionToException);
     return res.data.data
   }
 
   async getSubredditGallery(subredditTitle) {
     const url = `gallery/r/${subredditTitle}`;
-    const res = await this.client.get(url).catch(transformAxiosRejectionToException);
+    const res = await this.client.get(url).catch(sharedUtils.transformAxiosRejectionToException);
     return res.data.data;
   }
 };
