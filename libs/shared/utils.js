@@ -3,5 +3,5 @@ module.exports = {
     if (error.isAxiosError) {
       throw new Error(error.response.data.message);
     }
-  }
+  },
 };

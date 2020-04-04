@@ -7,7 +7,6 @@ class NewsApi {
     this.client = axios.create({
       baseURL: 'https://newsapi.org/v1/',
       timeout: 2000,
-
     });
   }
 

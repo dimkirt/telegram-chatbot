@@ -9,7 +9,6 @@ class OpenWeatherApi {
     this.client = axios.create({
       baseURL: 'http://api.openweathermap.org/data/2.5/',
       timeout: 2000,
-
     });
   }
 
