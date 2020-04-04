@@ -1,5 +1,10 @@
 const axios = require('axios');
-const sharedUtils = require('../shared/utils');
+
+function NewsError(error) {
+  if (error.isAxiosError) {
+    throw new Error(error.response.data.message);
+  }
+}
 
 class NewsApi {
   constructor({ apiToken }) {
@@ -16,7 +21,7 @@ class NewsApi {
      */
   async getArticlesBySource(source) {
     const url = `articles?source=${source}&sortBy=top&apiKey=${this.apiToken}`;
-    const res = await this.client.get(url).catch(sharedUtils.transformAxiosRejectionToException);
+    const res = await this.client.get(url).catch(NewsError);
     return res.data.articles;
   }
 
@@ -25,7 +30,7 @@ class NewsApi {
      */
   async getSources() {
     const url = `sources?apiKey=${this.apiToken}`;
-    const res = await this.client.get(url).catch(sharedUtils.transformAxiosRejectionToException);
+    const res = await this.client.get(url).catch(NewsError);
     return res.data.sources;
   }
 }

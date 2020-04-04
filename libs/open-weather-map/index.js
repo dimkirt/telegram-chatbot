@@ -1,5 +1,10 @@
 const axios = require('axios');
-const sharedUtils = require('../shared/utils');
+
+function OpenWeatherError(error) {
+  if (error.isAxiosError) {
+    throw new Error(error.response.data.message);
+  }
+}
 
 class OpenWeatherApi {
   constructor({ apiToken, language, unitSystem = 'metric' }) {
@@ -20,7 +25,7 @@ class OpenWeatherApi {
     */
   async getWeatherByCity(city, country) {
     const url = `weather?q=${city},${country}&appid=${this.apiToken}&lang=${this.language}&units=${this.unitSystem}`;
-    const res = await this.client.get(url).catch(sharedUtils.transformAxiosRejectionToException);
+    const res = await this.client.get(url).catch(OpenWeatherError);
     return res.data;
   }
 }
