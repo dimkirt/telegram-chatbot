@@ -1,0 +1,12 @@
+{
+    "eslint.enable": true,
+    "eslint.alwaysShowStatus": true,
+    "eslint.nodePath": "./node_modules/.bin/",
+    "eslint.options": {
+      "configFile": ".eslintrc.js"
+    },
+    "[javascript]": {
+      "editor.tabSize": 2,
+      "editor.codeActionsOnSave": { "source.fixAll.eslint": true }
+    }
+}
