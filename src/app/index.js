@@ -1,6 +1,3 @@
-'use strict';
-require('dotenv').config();
-
 const telegramInboundEndpoint = 'https://popomastoras.herokuapp.com/';
 
 const express = require('express');
@@ -11,57 +8,46 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true, type: 'application/x-www-form-urlencoded' }));
 
-const telegram = require('./app/telegram');
-const utils = require('./app/utils');
-const reactions = require('./app/reactions');
-const watson = require('./app/watson');
-watson.initChat();
+const telegram = require('../libs/telegram');
+const utils = require('./utils');
+const reactions = require('./reactions');
 
 // setup updates webhook
 telegram.setupWebhook(telegramInboundEndpoint);
 
 // Add CORS support
-app.use(function (req, res, next){
-    // for simple CORS requests we only need to allow the origin of the client
-    res.header('Access-Control-Allow-Origin', '*');
-    // for complex CORS requests we need to allow the HTTP methods and the HTTP
-    // headers the client wants to use and also handle the preflight request
-    // with app.options()
-    res.header('Access-Control-Allow-Methods', 'GET, POST');
-    // to allow JSON Content-Type
-    res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
-    next();
+app.use((req, res, next) => {
+  // for simple CORS requests we only need to allow the origin of the client
+  res.header('Access-Control-Allow-Origin', '*');
+  // for complex CORS requests we need to allow the HTTP methods and the HTTP
+  // headers the client wants to use and also handle the preflight request
+  // with app.options()
+  res.header('Access-Control-Allow-Methods', 'GET, POST');
+  // to allow JSON Content-Type
+  res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
+  next();
 });
 
 // Handler functions
-function handleUpdates(req,res){
-    //console.log(req.body);
+function handleUpdates(req, res) {
+  const user = utils.filterUser(req.body);
+  const text = utils.filterText(req.body);
+  const chatId = utils.filterChatId(req.body);
+  const msgObject = utils.filterMsgId(req.body);
 
-    const user = utils.filterUser(req.body);
-    const text = utils.filterText(req.body);
-    const chatId = utils.filterChatId(req.body);
-    const msgObject = utils.filterMsgId(req.body);
-
-    // Watson Payload for the specific telegram message
-    // Send payload the response has the action
-    watson.sendMessage(text)
-        .then(resp => {
-            return reactions.reactToUserMessage(chatId, user,resp.output.text, resp.output.action, msgObject)
-        })
-        .then(() => res.status(200).send('OK'))
-        .catch(err => console.log(err));
+  reactions.reactToUserMessage(chatId, user, text, msgObject)
+    .then(() => res.status(200).send('OK'))
+    .catch((err) => console.log(err));
 }
 
-function welcome(req,res){
-    res.status(200).send('Pop is up');    
+function welcome(req, res) {
+  res.status(200).send('Pop is up');
 }
-    
-// Routes
+
 app.post('/', handleUpdates);
 app.get('/', welcome);
 
-// Run server
 const port = process.env.PORT || 3000;
-app.listen(port, function(){
-    console.log('Zagby bot server started on: ' + port);
+app.listen(port, () => {
+  console.log(`Zagby bot server started on: ${port}`);
 });
