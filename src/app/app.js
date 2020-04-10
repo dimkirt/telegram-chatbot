@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const reactions = require('./reactions');
+const reactions = require('../bot-core/reactions');
 
 function cors(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
