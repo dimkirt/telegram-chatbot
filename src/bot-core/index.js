@@ -4,7 +4,7 @@ const { OpenWeatherApi } = require('../libs/open-weather-map');
 const { NewsApi } = require('../libs/news-api');
 const { ImgurApi } = require('../libs/imgur');
 
-const { Bot } = require('./reactions');
+const { Bot } = require('./bot');
 const actionsRepository = require('./data');
 
 function createBot() {
