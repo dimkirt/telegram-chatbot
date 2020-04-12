@@ -1,19 +1,17 @@
-const greekUtils = require('greek-utils');
-
 class Bot {
   constructor({
     telegramBotApi,
     openWeatherApi,
     newsApi,
     imgurApi,
-    actionsRepository,
+    actionRepository,
     intentionService,
   }) {
     this.telegramBotApi = telegramBotApi;
     this.openWeatherApi = openWeatherApi;
     this.newsApi = newsApi;
     this.imgurApi = imgurApi;
-    this.actionsRepository = actionsRepository;
+    this.actionRepository = actionRepository;
     this.intentionService = intentionService;
     this.functionFactory = {
       sendMessage: this.sendMessage,
@@ -26,7 +24,7 @@ class Bot {
     };
   }
 
-  executeAction(action, chatId, msgId) {
+  executeAction({ action, chatId, msgId }) {
     const isValidAction = action.type in Object.keys(this.functionFactory);
     if (isValidAction) {
       const payload = { ...action.payload, chatId, msgId };
@@ -95,19 +93,24 @@ class Bot {
   }
 
   reactToUserMessage(message) {
-    const { text } = message;
-    const chatId = message.chat.id;
-    const user = message.from.username;
-    const msgId = message.message_id;
-
-    const standardizedText = greekUtils.toGreeklish(text).toLowerCase();
-    const intention = this.intentionService.determineIntention({ standardizedText, chatId, user });
-    const action = this.actionsRepository.findOne({ id: intention.action });
+    const determineIntentionDto = {
+      text: message.text,
+      chatId: message.chat.id,
+      user: message.from.username,
+    };
+    const intention = this.intentionService.determineIntention(determineIntentionDto);
+    const action = this.actionRepository.findOne({ id: intention.action });
 
     if (!action) {
       return Promise.resolve();
     }
-    return this.executeAction(action, chatId, msgId);
+
+    const executeActionDto = {
+      action,
+      chatId: message.chat.id,
+      msgId: message.message_id,
+    };
+    return this.executeAction(executeActionDto);
   }
 }
 
