@@ -20,14 +20,14 @@ class IntentionService {
 
   determineAction({ intention, chatId, userId }) {
     // User specific action has priority over chat specific action
-    const matchingUser = intention.users.filter((user) => user.username === userId);
-    if (matchingUser.length) {
-      return matchingUser.action;
+    const matchingUsers = intention.users.filter((user) => user.username === userId);
+    if (matchingUsers.length) {
+      return matchingUsers[0].action;
     }
 
-    const matchingChat = intention.chats.filter((chat) => chat.id === chatId);
-    if (matchingChat.length) {
-      return matchingChat.action;
+    const matchingChats = intention.chats.filter((chat) => chat.id === chatId);
+    if (matchingChats.length) {
+      return matchingChats[0].action;
     }
 
     return intention.action;
