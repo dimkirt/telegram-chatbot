@@ -20,6 +20,7 @@ module.exports = {
     'quotes': [2, 'single'],
     'indent': [2, 2],
     'max-len': [2, 120],
+    'class-methods-use-this': 0,
     // We disable this to make life with Mongo easier
     'no-underscore-dangle': 0,
     'require-await': 1,
