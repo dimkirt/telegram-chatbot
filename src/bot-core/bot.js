@@ -19,8 +19,7 @@ class Bot {
       sendDocument: this.sendDocument,
       sendLocation: this.sendLocation,
       sendMessageWithWeatherForCity: this.sendMessageWithWeatherForCity,
-      sendRandomPhotoFromImgurAlbum: this.sendRandomPhotoFromImgurAlbum,
-      sendRandomPhotoFromImgurSubreddit: this.sendRandomPhotoFromImgurSubreddit,
+      sendMessageArticlesForNewsSource: this.sendMessageArticlesForNewsSource,
     };
   }
 
