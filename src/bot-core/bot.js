@@ -12,7 +12,7 @@ class Bot {
     const determineActionDto = {
       intention,
       chatId: message.chat.id,
-      user: message.from.username,
+      userId: message.from.username,
     };
     const actionId = this.intentionService.determineAction(determineActionDto);
     const executeActionDto = {
