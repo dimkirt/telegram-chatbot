@@ -15,7 +15,7 @@ class IntentionService {
     if (matchingIntentions.length) {
       return matchingIntentions[0];
     }
-    return Promise.resolve();
+    throw new Error('No matching Intention');
   }
 
   determineAction({ intention, chatId, userId }) {
