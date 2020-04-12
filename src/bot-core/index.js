@@ -5,9 +5,8 @@ const { NewsApi } = require('../libs/news-api');
 const { ImgurApi } = require('../libs/imgur');
 
 const { Bot } = require('./bot');
+const { createIntentionService } = require('./intentions');
 const { ActionRepository } = require('./action-repository');
-const { IntentionRepository } = require('./intentions/intention-repository');
-const { IntentionService } = require('./intentions/intention-service');
 
 function createBot() {
   const telegramBotApi = new TelegramBotApi({
@@ -28,9 +27,8 @@ function createBot() {
     apiClientSecret: process.env.IMGUR_CLIENT_SECRET,
   });
 
+  const intentionService = createIntentionService();
   const actionRepository = new ActionRepository();
-  const intentionRepository = new IntentionRepository();
-  const intentionService = new IntentionService({ intentionRepository });
   return new Bot({
     telegramBotApi, openWeatherApi, newsApi, imgurApi, actionRepository, intentionService,
   });
