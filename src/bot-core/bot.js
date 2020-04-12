@@ -25,10 +25,10 @@ class Bot {
   }
 
   executeAction({ action, chatId, msgId }) {
-    const isValidAction = action.type in Object.keys(this.functionFactory);
+    const isValidAction = action.type in this.functionFactory;
     if (isValidAction) {
       const payload = { ...action.payload, chatId, msgId };
-      return this.functionFactory[action.type].call(payload);
+      return this.functionFactory[action.type].call(this, payload);
     }
     return Promise.resolve();
   }
@@ -92,14 +92,15 @@ class Bot {
     return Promise.all(articles.map(sendNewsArticleToTelegram));
   }
 
-  reactToUserMessage(message) {
-    const determineIntentionDto = {
-      text: message.text,
+  async reactToUserMessage(message) {
+    const intention = await this.intentionService.determineIntention({ text: message.text });
+    const determineActionDto = {
+      intention,
       chatId: message.chat.id,
       user: message.from.username,
     };
-    const intention = this.intentionService.determineIntention(determineIntentionDto);
-    const action = this.actionRepository.findOne({ id: intention.action });
+    const actionId = this.intentionService.determineAction(determineActionDto);
+    const action = await this.actionRepository.findOne({ id: actionId });
 
     if (!action) {
       return Promise.resolve();
