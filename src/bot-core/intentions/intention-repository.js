@@ -40,7 +40,7 @@ class IntentionRepository {
         match: 'INCLUDE',
         users: [],
         chats: [],
-        action: '5e921c230779b7f4724e3f66',
+        action: '5e921d6874243209e3d405f1',
       },
     ];
   }
