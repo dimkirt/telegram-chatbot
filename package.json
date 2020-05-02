@@ -4,8 +4,9 @@
   "description": "An implementation of a telegram chatbot",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config src/main.js",
-    "start:prod": "node src/main.js"
+    "build": "tsc",
+    "start": "node -r dotenv/config dist/main.js",
+    "start:prod": "node dist/main.js"
   },
   "repository": {
     "type": "git",
