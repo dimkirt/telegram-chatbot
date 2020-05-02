@@ -1,2 +1,3 @@
-# telegram-chatbot
-Implementation of a telegram chatbot 
+# Telegram Chatbot
+
+Implementation of a telegram chatbot

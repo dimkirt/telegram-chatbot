@@ -1,5 +1,5 @@
-const { TelegramBotApi } = require('./src/libs/telegram');
-const { createApp } = require('./src/rest-api/app.js');
+const { TelegramBotApi } = require('./libs/telegram');
+const { createApp } = require('./rest-api/app.js');
 
 const DEFAULT_PORT = 3000;
 
