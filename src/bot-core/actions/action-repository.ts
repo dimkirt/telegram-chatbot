@@ -1,4 +1,8 @@
-class ActionRepository {
+import { IAction } from './action.interface';
+
+export class ActionRepository {
+  private actions: IAction[];
+
   constructor() {
     this.actions = [
       {
@@ -59,11 +63,10 @@ class ActionRepository {
     ];
   }
 
-  findOne({ id }) {
-    return Promise.resolve(this.actions.find((el) => el.id === id));
+  findOne(id: string): Promise<IAction> | undefined {
+    const action = this.actions.find((el) => el.id === id);
+    if (action) {
+      return Promise.resolve(action);
+    }
   }
 }
-
-module.exports = {
-  ActionRepository,
-};

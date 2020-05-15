@@ -1,7 +1,14 @@
-const greekUtils = require('greek-utils');
+import * as greekUtils from 'greek-utils';
+import { IntentionRepository } from './intention-repository';
 
-class IntentionService {
-  constructor({ intentionRepository }) {
+export interface IIntentionServiceProps {
+  intentionRepository: IntentionRepository;
+}
+
+export class IntentionService {
+  private readonly intentionRepository: IntentionRepository;
+
+  constructor({ intentionRepository }: IIntentionServiceProps) {
     this.intentionRepository = intentionRepository;
   }
 
@@ -20,12 +27,12 @@ class IntentionService {
 
   determineAction({ intention, chatId, userId }) {
     // User specific action has priority over chat specific action
-    const matchingUsers = intention.users.filter((user) => user.username === userId);
+    const matchingUsers = intention.users.filter((user: any) => user.username === userId);
     if (matchingUsers.length) {
       return matchingUsers[0].action;
     }
 
-    const matchingChats = intention.chats.filter((chat) => chat.id === chatId);
+    const matchingChats = intention.chats.filter((chat: any) => chat.id === chatId);
     if (matchingChats.length) {
       return matchingChats[0].action;
     }
@@ -33,7 +40,3 @@ class IntentionService {
     return intention.action;
   }
 }
-
-module.exports = {
-  IntentionService,
-};

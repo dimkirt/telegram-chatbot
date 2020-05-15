@@ -1,5 +1,5 @@
-const { TelegramBotApi } = require('./libs/telegram');
-const { createApp } = require('./rest-api/app.js');
+import { TelegramBotApi } from './libs/telegram';
+import { createApp } from './rest-api/app.js';
 
 const DEFAULT_PORT = 3000;
 
@@ -7,7 +7,7 @@ function createTelegramWebhook() {
   const telegramBotApi = new TelegramBotApi({
     apiToken: process.env.TELEGRAM_BOT_API_TOKEN,
   });
-  return telegramBotApi.setWebhook(process.env.TELEGRAM_WEBHOOK_URL);
+  return telegramBotApi.setWebhook(process.env.TELEGRAM_WEBHOOK_URL, {});
 }
 
 async function main() {

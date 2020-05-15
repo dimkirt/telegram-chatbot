@@ -1,7 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
 
-const { createBot } = require('../bot-core');
+import { createBot } from '../bot-core';
 
 function cors(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -12,7 +12,7 @@ function cors(req, res, next) {
 
 const asyncErrorHandler = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
-function createApp() {
+export function createApp() {
   const bot = createBot();
   const app = express();
   app.use(bodyParser.json());
@@ -28,7 +28,3 @@ function createApp() {
 
   return app;
 }
-
-module.exports = {
-  createApp,
-};
