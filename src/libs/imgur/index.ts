@@ -1,13 +1,17 @@
-const axios = require('axios');
+import axios, { AxiosError, AxiosInstance } from 'axios';
+import { isAxiosError } from '../util';
 
-function ImgurError(error) {
-  if (error.isAxiosError) {
-    throw new Error(error.response.statusText);
-  }
+interface IImgurApiProps {
+  apiClientId: string;
+  apiClientSecret: string;
 }
 
-class ImgurApi {
-  constructor({ apiClientId, apiClientSecret }) {
+export class ImgurApi {
+  private apiClientId: string;
+  private apiClientSecret: string;
+  private client: AxiosInstance;
+
+  constructor({ apiClientId, apiClientSecret }: IImgurApiProps) {
     this.apiClientId = apiClientId;
     this.apiClientSecret = apiClientSecret;
     this.client = axios.create({
@@ -18,19 +22,22 @@ class ImgurApi {
     this.client.defaults.headers.common['Cache-Control'] = 'no-cache';
   }
 
-  async getAlbumImages(albumHash) {
+  async getAlbumImages(albumHash: string): Promise<any[]> {
     const url = `album/${albumHash}/images`;
     const res = await this.client.get(url).catch(ImgurError);
     return res.data.data;
   }
 
-  async getSubredditGallery(subredditTitle) {
+  async getSubredditGallery(subredditTitle: string): Promise<any[]> {
     const url = `gallery/r/${subredditTitle}`;
     const res = await this.client.get(url).catch(ImgurError);
     return res.data.data;
   }
 }
 
-module.exports = {
-  ImgurApi,
-};
+function ImgurError(error: AxiosError | Error): never {
+  if (isAxiosError(error) && error.response) {
+    throw new Error(error.response.statusText);
+  }
+  throw error;
+}
