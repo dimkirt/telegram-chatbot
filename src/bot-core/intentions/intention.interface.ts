@@ -3,6 +3,6 @@ export interface IIntention {
   keyword: string;
   match: 'EXACT' | 'INCLUDE';
   users: { username: string; action: string; }[];
-  chats: string[];
+  chats: { chat: string; action: string; }[];
   action: string;
 }

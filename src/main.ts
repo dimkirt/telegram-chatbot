@@ -5,9 +5,9 @@ const DEFAULT_PORT = 3000;
 
 function createTelegramWebhook() {
   const telegramBotApi = new TelegramBotApi({
-    apiToken: process.env.TELEGRAM_BOT_API_TOKEN,
+    apiToken: process.env.TELEGRAM_BOT_API_TOKEN || '',
   });
-  return telegramBotApi.setWebhook(process.env.TELEGRAM_WEBHOOK_URL, {});
+  return telegramBotApi.setWebhook(process.env.TELEGRAM_WEBHOOK_URL || '', {});
 }
 
 async function main() {
