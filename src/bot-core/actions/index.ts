@@ -3,10 +3,10 @@ const { OpenWeatherApi } = require('../../libs/open-weather-map');
 const { NewsApi } = require('../../libs/news-api');
 const { ImgurApi } = require('../../libs/imgur');
 
-const { ActionRepository } = require('./action-repository');
-const { ActionService } = require('./action-service');
+import { ActionRepository } from './action-repository';
+import { ActionService } from './action-service';
 
-function createActionService() {
+export function createActionService() {
   const telegramBotApi = new TelegramBotApi({
     apiToken: process.env.TELEGRAM_BOT_API_TOKEN,
   });
@@ -34,7 +34,3 @@ function createActionService() {
     actionRepository,
   });
 }
-
-module.exports = {
-  createActionService,
-};

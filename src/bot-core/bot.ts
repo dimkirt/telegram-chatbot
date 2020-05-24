@@ -1,13 +1,24 @@
-class Bot {
+import { ActionService } from './actions/action-service';
+import { IntentionService } from './intentions/intention-service';
+
+export interface IBotProps {
+  actionService: ActionService,
+  intentionService: IntentionService,
+}
+
+export class Bot {
+  private readonly actionService: ActionService;
+  private readonly intentionService: IntentionService;
+
   constructor({
     actionService,
     intentionService,
-  }) {
+  }: IBotProps) {
     this.actionService = actionService;
     this.intentionService = intentionService;
   }
 
-  async reactToUserMessage(message) {
+  async reactToUserMessage(message: any) {
     const intention = await this.intentionService.determineIntention({ text: message.text });
     const determineActionDto = {
       intention,
@@ -23,7 +34,3 @@ class Bot {
     return this.actionService.executeAction(executeActionDto);
   }
 }
-
-module.exports = {
-  Bot,
-};

@@ -5,6 +5,7 @@
     "allowJs": true,
     "outDir": "./dist",
     "sourceMap": true,
+    "strict": true,
   },
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "decs.d.ts"],
 }

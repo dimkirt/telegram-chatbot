@@ -1,4 +1,9 @@
-class IntentionRepository {
+import { IIntention } from './intention.interface';
+
+
+export class IntentionRepository {
+  private readonly intentions: IIntention[];
+
   constructor() {
     this.intentions = [
       {
@@ -15,6 +20,7 @@ class IntentionRepository {
         action: '5e921abb8db116d84ba09c79',
       },
       {
+        id: '5e921aea1806ebd59a2896ad',
         keyword: 'news_google',
         match: 'EXACT',
         users: [],
@@ -22,6 +28,7 @@ class IntentionRepository {
         action: '5e921ad3849247016c3e2e93',
       },
       {
+        id: '5e921aea1806ebd59a2896ae',
         keyword: 'weather_thessaloniki',
         match: 'EXACT',
         users: [],
@@ -29,6 +36,7 @@ class IntentionRepository {
         action: '5e921b6932c12cb3ed20602a',
       },
       {
+        id: '5e921aea1806ebd59a2896af',
         keyword: 'sad',
         match: 'INCLUDE',
         users: [],
@@ -36,6 +44,7 @@ class IntentionRepository {
         action: '5e921c230779b7f4724e3f66',
       },
       {
+        id: '5e921aea1806ebd59a2896ag',
         keyword: 'meli',
         match: 'INCLUDE',
         users: [],
@@ -45,15 +54,14 @@ class IntentionRepository {
     ];
   }
 
-  find() {
+  find(): Promise<IIntention[]> {
     return Promise.resolve(this.intentions);
   }
 
-  findOne({ id }) {
-    return Promise.resolve(this.intentions.find((el) => el.id === id));
+  findOne(id: string): Promise<IIntention> | undefined {
+    const intention = this.intentions.find((el) => el.id === id);
+    if (intention) {
+      return Promise.resolve(intention);
+    }
   }
 }
-
-module.exports = {
-  IntentionRepository,
-};
