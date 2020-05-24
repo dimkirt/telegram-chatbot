@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node --enable-source-maps -r dotenv/config dist/main.js",
-    "start:prod": "node --enable-source-maps dist/main.js"
+    "start:prod": "node --enable-source-maps dist/main.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
